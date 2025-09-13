@@ -73,7 +73,13 @@ export default function Home() {
         },
         body: JSON.stringify({ title: title.trim(), content: content.trim() })
       });
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        setError('Server error - please check if environment variables are set on Vercel');
+        return;
+      }
       
       if (res.ok) {
         setNotes([data, ...notes]);
@@ -105,7 +111,13 @@ export default function Home() {
         },
         body: JSON.stringify({ title: title.trim(), content: content.trim() })
       });
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        setError('Server error - please check if environment variables are set on Vercel');
+        return;
+      }
       
       if (res.ok) {
         setNotes(notes.map(note => note.id === editingNote.id ? data : note));
