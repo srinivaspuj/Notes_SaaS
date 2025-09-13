@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 const db = require('../../../lib/db');
+const { cors } = require('../../../lib/cors');
 
 // Simplified for demo - in production use bcrypt
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-export default function handler(req, res) {
+function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -53,3 +54,5 @@ export default function handler(req, res) {
     }
   );
 }
+
+export default cors(handler);

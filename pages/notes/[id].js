@@ -1,6 +1,6 @@
-const db = require('../../../lib/db');
-const { requireAuth } = require('../../../lib/auth');
-const { cors } = require('../../../lib/cors');
+const db = require('../../lib/db');
+const { requireAuth } = require('../../lib/auth');
+const { cors } = require('../../lib/cors');
 
 async function handler(req, res) {
   const { method, query } = req;
