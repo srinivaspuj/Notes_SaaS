@@ -60,7 +60,16 @@ async function handler(req, res) {
           [title, content, tenantId, userId],
           function(err) {
             if (err) return res.status(500).json({ error: 'Database error' });
-            res.status(201).json({ id: this.lastID, title, content });
+            const noteId = this.lastID;
+            // Get the complete note with created_at
+            db.get(
+              'SELECT * FROM notes WHERE id = ?',
+              [noteId],
+              (err, note) => {
+                if (err) return res.status(500).json({ error: 'Database error' });
+                res.status(201).json(note);
+              }
+            );
           }
         );
       }

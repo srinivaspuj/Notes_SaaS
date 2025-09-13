@@ -108,7 +108,7 @@ export default function Home() {
       const data = await res.json();
       
       if (res.ok) {
-        setNotes(notes.map(note => note.id === editingNote.id ? { ...note, title: data.title, content: data.content } : note));
+        setNotes(notes.map(note => note.id === editingNote.id ? data : note));
         setTitle('');
         setContent('');
         setEditingNote(null);

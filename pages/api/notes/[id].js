@@ -28,7 +28,15 @@ async function handler(req, res) {
         function(err) {
           if (err) return res.status(500).json({ error: 'Database error' });
           if (this.changes === 0) return res.status(404).json({ error: 'Note not found' });
-          res.status(200).json({ id, title, content });
+          // Get the complete updated note
+          db.get(
+            'SELECT * FROM notes WHERE id = ? AND tenant_id = ?',
+            [id, tenantId],
+            (err, note) => {
+              if (err) return res.status(500).json({ error: 'Database error' });
+              res.status(200).json(note);
+            }
+          );
         }
       );
       break;
